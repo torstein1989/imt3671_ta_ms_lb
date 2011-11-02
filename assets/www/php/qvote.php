@@ -1,8 +1,12 @@
 <?php
 	include 'connection.php';
 
-	$vote = 	$_POST['vote'];
-	$vID = 		$_POST['vID'];
+	$question= 	$_POST['question'];
+	$qA = 		$_POST['qA'];
+	$qB = 		$_POST['qB'];
+	$qC = 		$_POST['qC'];
+	$qD = 		$_POST['qD'];
+	
 	
 	try {
     $dbh = new PDO("$dbtype:host=$host;dbname=$dbname", $user, $pass);
@@ -10,7 +14,7 @@
     echo 'Connected to database<br />';
 
     /*** INSERT data ***/
-    $count = $dbh->exec("INSERT INTO feedback_vote (vote, vID) VALUES ('$vote','$vID')");
+    $count = $dbh->exec("INSERT INTO feedback_qvote (question,qA,qB,qC,qD) VALUES ('$question','$qA','$qB','$qC','$qD')");
    
     echo $count;
 

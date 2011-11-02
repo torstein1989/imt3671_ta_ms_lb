@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>PhoneGap</title>
+<script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/jquery-1.6.4.js"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script>
+	var vote = -1;
+	var vID = -1;
+	/**
+		Get the voteID from the called function 
+	*/
+	
+	$(document).ready(function(){
+		
+		$("#subBtn").click(function(){
+			vote = $("input[name=vote]:checked").val();
+			if(vote == undefined){
+				alert("Please choose a selection!");
+			}
+			else{
+				postData();
+			}
+			
+		});
+		$("#id").click(function(){
+			vID = getQuestionId();
+		});
+		
+		function postData(){
+			$.ajax({
+				url: "http://www.stud.hig.no/~090917/teacherfeed/vote.php",
+				type: "POST",
+				data: 	"&vote="+vote+
+						"&vID="+vID,
+				success:function(data){
+					alert(vote+vID);
+				}
+			});
+		}
+		
+		function getQuestionId(){
+			$.ajax({
+				url: 'http://www.stud.hig.no/~090917/teacherfeed/getQuestion.php',
+				type: 'GET',
+				dataType: 'json',
+				success: function(data) {
+					alert(data[0].qID);
+				}
+			});
+		}
+		
+		
+	});
+</script>
+</head>
+<body>
+	<div id="votes">
+		<form>
+			<input type="radio" name="vote" value="1" /> A <br />
+			<input type="radio" name="vote" value="2" /> B <br />
+			<input type="radio" name="vote" value="3" /> C <br />
+			<input type="radio" name="vote" value="4" /> D <br />
+		</form>
+		<button type="button" id="subBtn"> VOTE THIS</button>
+		<a id="id">Generate ID</a>
+	</div>
+</body>
+</html>
