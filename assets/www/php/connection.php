@@ -1,5 +1,5 @@
 <?php
-// disse datane endres etter dine instillinger
+// Login-settings
  $host   = "mysql.stud.hig.no";
  $dbtype = "mysql";	
  $dbname = "s090917";

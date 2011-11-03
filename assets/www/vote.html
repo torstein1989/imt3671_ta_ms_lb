@@ -4,15 +4,19 @@
 <title>PhoneGap</title>
 <script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/jquery-1.6.4.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <script>
 	var vote = -1;
-	var vID = -1;
+	var vID = -1;	
 	/**
 		Get the voteID from the called function 
 	*/
 	
 	$(document).ready(function(){
+		
+		getVoteId();//get the current QuestionID
 		
 		$("#subBtn").click(function(){
 			vote = $("input[name=vote]:checked").val();
@@ -23,35 +27,29 @@
 				postData();
 			}
 			
-		});
-		$("#id").click(function(){
-			vID = getQuestionId();
-		});
-		
+		});//click function end
+				
 		function postData(){
 			$.ajax({
 				url: "http://www.stud.hig.no/~090917/teacherfeed/vote.php",
 				type: "POST",
-				data: 	"&vote="+vote+
-						"&vID="+vID,
+				data: 	"&vID="+vID+
+						"&vote="+vote,
 				success:function(data){
-					alert(vote+vID);
 				}
-			});
+			});//ajax-end
 		}
-		
-		function getQuestionId(){
+		function getVoteId(){
 			$.ajax({
 				url: 'http://www.stud.hig.no/~090917/teacherfeed/getQuestion.php',
 				type: 'GET',
 				dataType: 'json',
 				success: function(data) {
-					alert(data[0].qID);
+					var idData = parseInt(data[0]);
+					vID = idData;
 				}
-			});
+			});//ajax-end
 		}
-		
-		
 	});
 </script>
 </head>
@@ -64,7 +62,6 @@
 			<input type="radio" name="vote" value="4" /> D <br />
 		</form>
 		<button type="button" id="subBtn"> VOTE THIS</button>
-		<a id="id">Generate ID</a>
 	</div>
 </body>
 </html>
