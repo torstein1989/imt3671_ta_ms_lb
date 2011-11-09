@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>PhoneGap</title>
+<script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/jquery-1.6.4.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.css" />
+<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
+
+<script>
+var mDiff = -1;
+var mMood = -1;
+$(document).ready(function(){
+	$("#moodBtn").click(function(){
+		mDiff = $("#moodVal").val();
+		mMood = $("#moodVal_1").val();
+		alert("OK! --> Difficulty= "+mDiff+" Mood= "+mMood);
+		postData();
+		$("#moodVal").slider('refresh');
+		
+	});
+	
+	function postData(){
+		$.ajax({
+			url: "http://www.stud.hig.no/~090917/teacherfeed/mood.php",
+			type: "POST",
+			data: 	"&mDiff="+mDiff+
+					"&mMood="+mMood,
+			success:function(data){
+			}
+		});//ajax-end
+	}//postdata-End
+});
+</script>
+</head>
+
+<body>
+<div data-role="page">
+	<div data-role="fieldcontain">
+		<label for="moodVal">DIFFICULTY: </label>
+			VANSKELIG  <input type="range" name="moodVal" id="moodVal"  min="0" max="100" value="50" step="25" data-track-theme="b" /> LETT
+	</div>
+	<div data-role="fieldcontain">
+		<label for="moodVal_1">MOOD: </label>
+			KJEDELIG <input type="range" name="moodVal_1" id="moodVal_1"  min="0" max="100" value="50" step="25" data-track-theme="a"/>  MORSOMT
+	</div>
+	<button type="button" id="moodBtn">GETVALUE</button>
+</div>
+</body>
+</html>

@@ -4,7 +4,9 @@
 <title>PhoneGap</title>
 <script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/jquery-1.6.4.js"></script>
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.css" />
+<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
 <script>
 	var question = null;
 	var qA,qB,qC,qD = null;
@@ -51,16 +53,21 @@
 </script>
 </head>
 <body>
-	<div id="votes">
-		<form>
-			Q:<input type="text" name="formQuestion" /><br /><br />
+<div data-role="page">
+	<div data-role="fieldcontain">
+		<label for="formQuestion">Question</label>
+		<input type="text" id="formQuestion" name="formQuestion" />
+		<label for="formA">Option A</label>
+		<input type="text" id="formA" name="formA" />
+		<label for="formB">Option B</label>
+		<input type="text" id="formB" name="formB" />
+		<label for="formC">Option C</label>
+		<input type="text" id="formC" name="formC" />
+		<label for="formD">Option D</label>
+		<input type="text" id="formD" name="formD" />
 		
-			A:<input type="text" name="formA" /><br />
-			B:<input type="text" name="formB" /><br />
-			C:<input type="text" name="formC" /><br />
-			D:<input type="text" name="formD" /><br />
-		</form>
 		<button type="button" id="subBtn"> REGISTER THIS</button>
 	</div>
+</div>
 </body>
 </html>

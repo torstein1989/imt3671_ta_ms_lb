@@ -4,12 +4,19 @@
 <title>PhoneGap</title>
 <script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/jquery-1.6.4.js"></script>
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.css" />
+<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
 </head>
 <body>
+<div data-role="page">
 <h1>Hello World</h1>
 <p>GitTest</p>
-<a href="http://www.stud.hig.no/~090917/teacherfeed/vote.html">VOTE</a>
-<a href="qvote.html">MAKE QUESTION</a>
+<ul data-role="listview" data-theme="b">
+	<li><a href="vote.html" data-transition="slide" data-ajax="false">LOCAL-VOTE</a></li>
+	<li><a href="mood.html" data-transition="slide" data-ajax="false">MY MOOD</a></li>
+	<li><a href="qvote.html" data-transition="slide" data-ajax="false">MAKE QUESTION</a></li>
+</ul>
+</div>
 </body>
 </html>

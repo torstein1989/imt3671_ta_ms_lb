@@ -4,9 +4,9 @@
 <title>PhoneGap</title>
 <script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/jquery-1.6.4.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.css" />
+<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
 <script>
 	var vote = -1;
 	var vID = -1;	
@@ -15,6 +15,11 @@
 	*/
 	
 	$(document).ready(function(){
+		/**
+		$("input").live("change",function(e){
+			  alert( "Change event! new value is " + $(this).val() );
+			  $("input[type=radio]").attr("checked",true).checkboxradio("refresh");
+			});*/
 		
 		getVoteId();//get the current QuestionID
 		
@@ -24,10 +29,14 @@
 				alert("Please choose a selection!");
 			}
 			else{
+				getVoteId();//get the current QuestionID
 				postData();
+				alert("Answer OK and ID: "+vID)
+				$("input[type='radio']").attr("checked",false).checkboxradio("refresh");//Resets the radiobutton
 			}
 			
 		});//click function end
+		
 				
 		function postData(){
 			$.ajax({
@@ -38,7 +47,8 @@
 				success:function(data){
 				}
 			});//ajax-end
-		}
+		}//postdata-End
+		
 		function getVoteId(){
 			$.ajax({
 				url: 'http://www.stud.hig.no/~090917/teacherfeed/getQuestion.php',
@@ -49,19 +59,27 @@
 					vID = idData;
 				}
 			});//ajax-end
-		}
+		}//getVoteId-End
 	});
 </script>
 </head>
 <body>
-	<div id="votes">
-		<form>
-			<input type="radio" name="vote" value="1" /> A <br />
-			<input type="radio" name="vote" value="2" /> B <br />
-			<input type="radio" name="vote" value="3" /> C <br />
-			<input type="radio" name="vote" value="4" /> D <br />
-		</form>
-		<button type="button" id="subBtn"> VOTE THIS</button>
+<div data-role="page">
+	<div data-role="fieldcontain">	
+		<fieldset data-role="controlgroup" data-type="horizontal">
+		<legend>Choose a answer:</legend>
+			<input type="radio" id="vote1" name="vote" value="1" /> 
+			<label for="vote1">A</label>
+			<input type="radio" id="vote2" name="vote" value="2" />
+			<label for="vote2">B</label>
+			<input type="radio" id="vote3" name="vote" value="3" /> 
+			<label for="vote3">C</label>
+			<input type="radio" id="vote4" name="vote" value="4" /> 
+			<label for="vote4">D</label>
+			
+			<button type="button" id="subBtn"> VOTE THIS</button>
+		</fieldset>
 	</div>
+</div>
 </body>
 </html>
