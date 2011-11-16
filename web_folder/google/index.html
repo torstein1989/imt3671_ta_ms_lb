@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+  <head>
+    <title>TeacherFeedback</title>
+
+    <meta charset='utf-8'>
+    <script src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+    <!-- Extra libraries -->
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.6.4.js"></script>
+    <script src="js/ajax.js"></script>
+  </head>
+  
+  <style>
+    /* Your individual styles here, or just use inline styles if that’s
+       what you want. */
+    
+    
+  </style>
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular template-default'>
+    
+    <!-- Your slides (<article>s) go here. Delete or comment out the slides below. -->
+    <article>
+    	<h3>Data from database</h3>
+    	<input type="number" name="inputId" id="inputId">
+    	<label id="labelId" for="inputId"> ID </label>
+    	<h4>Question :<div id="questionDiv"></div></h4>
+    	<ul>
+    		<li>A-<div id="voteA"></div></li>
+    		<li>B-<div id="voteB"></div></li>
+    		<li>C-<div id="voteC"></div></li>
+    		<li>D-<div id="voteD"></div></li>
+    	</ul>
+    </article>
+    	
+    </section>
+
+  </body>
+</html>

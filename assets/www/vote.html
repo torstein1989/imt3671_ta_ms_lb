@@ -2,14 +2,15 @@
 <html>
 <head>
 <title>PhoneGap</title>
-<script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/jquery-1.6.4.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.css" />
-<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
+	<!-- Scripts -->
+	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.0rc3.min.js"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/jquery.mobile-1.0rc3.css" />
 <script>
 	var vote = -1;
-	var vID = -1;	
+	var vID = -1;
 	/**
 		Get the voteID from the called function 
 	*/
@@ -40,7 +41,7 @@
 				
 		function postData(){
 			$.ajax({
-				url: "http://www.stud.hig.no/~090917/teacherfeed/vote.php",
+				url: "http://www.stud.hig.no/~090917/teacherfeed/php/vote.php",
 				type: "POST",
 				data: 	"&vID="+vID+
 						"&vote="+vote,
@@ -51,7 +52,7 @@
 		
 		function getVoteId(){
 			$.ajax({
-				url: 'http://www.stud.hig.no/~090917/teacherfeed/getQuestion.php',
+				url: 'http://www.stud.hig.no/~090917/teacherfeed/php/getQuestionId.php',
 				type: 'GET',
 				dataType: 'json',
 				success: function(data) {
