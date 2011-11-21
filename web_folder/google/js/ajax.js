@@ -1,11 +1,14 @@
 $(document).ready(function(){
 	var inputId = -1;
+	var difficulty= null;
+	var mood= null;
 	
 	$("#inputId").change(function(){
 		getQuestion();
 	}).delay(1000);
 	
-	
+	var init = setInterval(getMood,5000);
+		
 	function getQuestion(){
 		inputId = $("#inputId").val();
 		$.ajax({
@@ -26,6 +29,49 @@ $(document).ready(function(){
 				}
 			}
 		});//ajax-end
-	}
+	}//getQuestion-end
+	
+	function getMood(){
+		$.ajax({
+			url: '../php/getMood.php',
+			type: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				var i= 0;
+				while (i < data.length){
+					
+					intMood = parseInt(data[i].mMood);
+					mood= mood + intMood;
+					
+					intDifficulty= parseInt(data[i].mDiff);
+					difficulty = difficulty + intDifficulty;
+					i++;
+				}
+				
+				mood = mood/10;
+				difficulty = difficulty/10;
+				
+				//alert("Mood :"+mood);
+				//alert("Difficulty :"+difficulty);
+				
+				if(mood > 0 && mood < 25){
+					$(".current").css("background-color","black");
+					mood = null;
+				}
+				else if(mood > 25 && mood <50){
+					$(".current").css("background-color","blue");
+					mood = null;
+				}
+				else if(mood > 50 && mood <75){
+					$(".current").css("background-color","purple");
+					mood = null;
+				}
+				else{
+					$(".current").css("background-color","green");
+					mood = null;
+				}
+			}//success-end
+		});//ajax-end
+	}//getMood-end
 	
 });//documentready-end
