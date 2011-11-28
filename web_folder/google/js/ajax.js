@@ -75,7 +75,7 @@ $(document).ready(function(){
 		qD = 0;
 		voteCounts= 0;
 		
-		selectedId = parseInt($("#question").val())-1;
+		selectedId = parseInt($("#question").val());
 		$.ajax({
 			url: '../php/getQuestions.php',
 			type: 'GET',
@@ -99,10 +99,11 @@ $(document).ready(function(){
 				*/
 				
 				else{
-					var a = data[selectedId].qA;
-					var b = data[selectedId].qB;
-					var c = data[selectedId].qC;
-					var d = data[selectedId].qD;
+					var selId = selectedId-1;
+					var a = data[selId].qA;
+					var b = data[selId].qB;
+					var c = data[selId].qC;
+					var d = data[selId].qD;
 					
 					options = {
 							series:{
