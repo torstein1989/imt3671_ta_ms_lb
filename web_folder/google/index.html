@@ -20,8 +20,12 @@
     <meta charset='utf-8'>
     <script src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
     <!-- Extra libraries -->
-    <script type="text/javascript" charset="utf-8" src="js/jquery-1.6.4.js"></script>
-    <script src="js/ajax.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.js"></script>
+	<script type="text/javascript" src="flot/jquery.flot.js"></script>
+	<script type="text/javascript" src="flot/jquery.flot.stack.js"></script>
+	<script src="js/ajax.js"></script>
+    <!-- Extra styles -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
   </head>
   
   <style>
@@ -32,23 +36,59 @@
   </style>
 
   <body style='display: none'>
-
     <section class='slides layout-regular template-default'>
     
     <!-- Your slides (<article>s) go here. Delete or comment out the slides below. -->
+    <!-- SLIDE 1 -->
     <article>
-    	<h3>Data from database</h3>
-    	<input type="number" name="inputId" id="inputId">
-    	<label id="labelId" for="inputId"> ID </label>
+    	<h3>Using Google HTML5-slide</h3>
     	<h4>Question :<div id="questionDiv"></div></h4>
     	<ul>
-    		<li>A-<div id="voteA"></div></li>
-    		<li>B-<div id="voteB"></div></li>
-    		<li>C-<div id="voteC"></div></li>
-    		<li>D-<div id="voteD"></div></li>
+    		<li>List item A</li>
+    		<li>List item B</li>
+    		<li>List item C</li>
+    		<li>List item D</li>
     	</ul>
     </article>
+    <!-- SLIDE 2 -->
+    <article>
+    	<!-- start slipsum code -->
+
+		<h1>We happy?</h1>
+		<p>Do you see any Teletubbies in here? Do you see a slender plastic tag clipped to my shirt with my name printed on it? Do you see a little Asian child with a blank expression on his face sitting outside on a mechanical helicopter that shakes when you put quarters in it? No? Well, that's what you see at a toy store. And you must think you're in a toy store, because you're here shopping for an infant named Jeb. </p>
+
+		<h1>Oh... what I'm gon' do?</h1>
+		<p>You see? It's curious. Ted did figure it out - time travel. And when we get back, we gonna tell everyone. How it's possible, how it's done, what the dangers are. But then why fifty years in the future when the spacecraft encounters a black hole does the computer call it an 'unknown entry event'? Why don't they know? If they don't know, that means we never told anyone. And if we never told anyone it means we never made it back. Hence we die down here. Just as a matter of deductive logic. </p>
+
+
+		<!-- end slipsum code -->
+    </article>
+    <!-- SLIDE 3 -->
+    <article>
+    	<!-- start slipsum code -->
+		
+		<h1>Is she dead, yes or no?</h1>
+		<p>Like you, I used to think the world was this great place where everybody lived by the same standards I did, then some kid with a nail showed me I was living in his world, a world where chaos rules not order, a world where righteousness is not rewarded. That's Cesar's world, and if you're not willing to play by his rules, then you're gonna have to pay the price. </p>
+		
+		<h1>I can do that</h1>
+		<p>You see? It's curious. Ted did figure it out - time travel. And when we get back, we gonna tell everyone. How it's possible, how it's done, what the dangers are. But then why fifty years in the future when the spacecraft encounters a black hole does the computer call it an 'unknown entry event'? Why don't they know? If they don't know, that means we never told anyone. And if we never told anyone it means we never made it back. Hence we die down here. Just as a matter of deductive logic. </p>
+		
+		
+		<!-- end slipsum code -->
+
+    </article>
+    
+    <!-- OUR FLOTCHART -->
+    <div id="flotChart">
+    	<div id="chart" style="width:360px; height:350px;"></div>
     	
+  		<p>CHARTINFO</p>
+  		<select id="question"></select>
+  		<button type="button" id="getResult">SHOW RESULT</button> <br />
+  		<button type="button" id="voteToggle">START VOTING</button>
+  		<h4 id="voteCount"></h4>
+
+    </div>
     </section>
 
   </body>
