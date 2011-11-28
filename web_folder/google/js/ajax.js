@@ -50,10 +50,20 @@ $(document).ready(function(){
 				
 				mood = mood/10;
 				difficulty = difficulty/10;
-				
+				setColor(mood);
 				//alert("Mood :"+mood);
 				//alert("Difficulty :"+difficulty);
-				
+				function setColor(p){
+					var red = p<50 ? 255 : Math.round(256 - (p-50)*5.12);
+				    var green = p>50 ? 255 : Math.round((p)*5.12);
+				    alert("rgb"+red+","+green +" 0");
+				    var cssObj = {
+				    		'background-color' : 'rgb(red,green,0)'
+				    			}
+				    $(".current").css(cssObj);
+				    return "rgb(" + red + "," + green + ",0)";
+				}
+				/*
 				if(mood > 0 && mood < 25){
 					$(".current").css("background-color","black");
 					mood = null;
@@ -70,6 +80,7 @@ $(document).ready(function(){
 					$(".current").css("background-color","green");
 					mood = null;
 				}
+				*/
 			}//success-end
 		});//ajax-end
 	}//getMood-end
