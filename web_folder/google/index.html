@@ -23,6 +23,8 @@
     <script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.js"></script>
 	<script type="text/javascript" src="flot/jquery.flot.js"></script>
 	<script type="text/javascript" src="flot/jquery.flot.stack.js"></script>
+	<script type="text/javascript" src="js/jsgauge-0.4.2/build/gauge.js"></script>
+	<script type="text/javascript" src="js/jsgauge-0.4.2/build/jquery.gauge.js"></script>
 	<script src="js/ajax.js"></script>
     <!-- Extra styles -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -77,7 +79,8 @@
 		<!-- end slipsum code -->
 
     </article>
-    
+    <!-- INFOAREA -->
+    <div id="infoArea">
     <!-- OUR FLOTCHART -->
     <div id="flotChart">
     	<div id="chart" style="width:360px; height:350px;"></div>
@@ -85,10 +88,16 @@
   		<p>CHARTINFO</p>
   		<select id="question"></select>
   		<button type="button" id="getResult">SHOW RESULT</button> <br />
+  		<input type="checkbox" name="autoResult" id="autoResult" value="yes"> <label for="autoResult">Autorefresh</label> <br />
   		<button type="button" id="voteToggle">START VOTING</button>
   		<h4 id="voteCount"></h4>
 
+		<!-- DifficultyGauge -->
+		<canvas id="difficultyGauge" width="350px" height="150px"></canvas>
     </div>
+    <!-- end FLOTCHART -->
+    </div>
+    <!-- end INFOAREA -->
     </section>
 
   </body>

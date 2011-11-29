@@ -1,21 +1,28 @@
 $(document).ready(function(){
 	/**VARIABLE/SETTINGS*/
-	var inputId = -1;
-	var difficulty= null;
-	var mood= null;
+	//var inputId = -1;
+	var difficulty= null; 	//Difficulty variable 
+	var mood= null;			//Mood variable
 	
-	var qSet = true;
+	var qSet = true;		//Is the question set variable
 	
-	var selectedId = null;
-	var plotData = null;
-	var placeholder = null;
-	var qA = 0;
-	var qB = 0;
-	var qC = 0;
-	var qD = 0;
-	var voteCounts= 0;
+	var selectedId = null;	//The selected id for question
+	var plotData = null;	//Contains data to be plotted in the flot chart
+	var placeholder = null;	//Where do you want the chart to be plotted
 	
-	var options = {
+	var qID = null;
+	var qID2 = true;
+	
+	var qA = 0;				//Question alternative A
+	var qB = 0;				//Question alternative B
+	var qC = 0;				//Question alternative C
+	var qD = 0;				//Question alternative D
+	var voteCounts= 0;		//Number of votes that is counted for this poll
+	
+	var autoUpdate = 0;		//Setinterval value for autoupdate of question and votes
+	var initMood = 0;		//Initialize variable for staring the mood meter in background 
+	
+	var options = { 		//Draw options for flot graph
 			series:{
 				stack: 0,
 				lines: {show: false, steps: false },
@@ -28,29 +35,66 @@ $(document).ready(function(){
 	
 	/**END-VARIABLE/SETTINGS*/
 	
-	var init = setInterval(getMood,5000);
-	drawFlot();
-	getQuestion();
+	/**
+	 * Starts the getMood method, so the background-color
+	 * changes accordingly to the users mood
+	 */
+	initMood = setInterval(function(){
+		getMood();
+	},4000);
+	
+	drawFlot();				//Draws an empty chart
+	drawGauge();
+	getQuestion();			//First populates the questions, then gets the questions alternatives 
 	
 	$("#getResult").click(function(){
+			reset();
 			getQuestion();
 			getVotes();
 			
 			$.plot($(placeholder), plotData, options);
 	});//click-end
 	
-	$("#question").change(function(){
-		
-	}).delay(500);
+	$("#autoResult").change(function(){
+		if($("#autoResult:checked").val() == "yes"){
+			autoUpdate = setInterval(function(){
+				reset();
+				getQuestion();
+				getVotes();
+			},4000);
+		}
+		else{
+			clearInterval(autoUpdate);
+		}
+	});
 	
 	var voteClicked = true;
 	$("#voteToggle").click(function(){
 		if(voteClicked){
 			$("#voteToggle").html("STOP VOTING");
+			selectedId = parseInt($("#question").val());
+			qID = selectedId;
+				$.ajax({
+					url: "http://www.stud.hig.no/~090917/teacherfeed/php/updateNowVoting.php",
+					type: "POST",
+					data: 	"&qID="+qID
+					success:function(data){
+					}
+				});//ajax-end
 			voteClicked=false;
 		}
 		else{
 			$("#voteToggle").html("START VOTING");
+			selectedId = parseInt($("#question").val());
+			qID = selectedId;
+				$.ajax({
+					url: "http://www.stud.hig.no/~090917/teacherfeed/php/updateNowVoting.php",
+					type: "POST",
+					data: 	"&qID="+qID+,
+							"&qID2="+qID2
+					success:function(data){
+					}
+				});//ajax-end
 			voteClicked=true;
 		}
 	});//click-end
@@ -67,14 +111,15 @@ $(document).ready(function(){
 	    
 	};//drawFlot-end
 	
-	
-	function getQuestion(){
+	function reset(){
 		qA = 0;
 		qB = 0;
 		qC = 0;
 		qD = 0;
 		voteCounts= 0;
-		
+	}//reset-end
+	
+	function getQuestion(){
 		selectedId = parseInt($("#question").val());
 		$.ajax({
 			url: '../php/getQuestions.php',
@@ -176,6 +221,7 @@ $(document).ready(function(){
 				mood = mood/10;
 				difficulty = difficulty/10;
 				setColor(mood);
+				setGaugeVal(parseInt(difficulty));
 				//alert("Mood :"+mood);
 				//alert("Difficulty :"+difficulty);
 				
@@ -193,10 +239,27 @@ $(document).ready(function(){
 				    
 				    
 				    return "rgb(" + red + "," + green + ",0)";
+				}//setColor-end
+				
+				function setGaugeVal(diffValue){
+					$("#difficultyGauge").gauge('setValue',diffValue);
 				}
 				
 			}//success-end
 		});//ajax-end
 	}//getMood-end
+	
+	function drawGauge(){
+		$("#difficultyGauge").gauge({
+            min: 0,
+            max: 100,
+            label: 'DIFFICULTY',
+            bands: [
+	                    {color: "#FF0000", from: 75, to: 100},
+	                    {color: "#FFFF00", from: 25, to: 75},
+	                    {color: "#00FF00", from: 0, to: 25}
+                    ]
+          });
+	}//drawGauge-end
 	
 });//documentready-end
