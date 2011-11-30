@@ -14,6 +14,7 @@
     		$count = $dbh->exec("UPDATE feedback_qvote SET nowVoting='no' WHERE qID='$qID'");
     	}
     	else {
+    		$count = $dbh->exec("UPDATE feedback_qvote SET nowVoting='no'");
     		$count = $dbh->exec("UPDATE feedback_qvote SET nowVoting='yes' WHERE qID='$qID'");
     	}
 	

@@ -12,16 +12,15 @@
 </head>
 
 <body>
-<div data-role="page">
-	<div data-role="fieldcontain">
-		<label for="moodVal">DIFFICULTY: </label>
-			EASY  <input type="range" name="moodVal" id="moodVal"  min="0" max="100" value="50" step="25" data-track-theme="b" /> HARD
+	<div data-role="page">	
+		<h1>Send message</h1>
+		<div data-role="fieldcontain">
+		<div id="messageForm">
+			<label for="message">Message</label>
+			<input type="text" id="message" name="message" />
+		</div>
+		<button type="button" id="messageSubBtn"> SEND MESSAGE </button>
 	</div>
-	<div data-role="fieldcontain">
-		<label for="moodVal_1">MOOD: </label>
-			BORING <input type="range" name="moodVal_1" id="moodVal_1"  min="0" max="100" value="50" step="25" data-track-theme="a"/>  INTERESTING
 	</div>
-	<button type="button" id="moodSubBtn">REGISTER DIFF/MOOD</button>
-</div>
 </body>
 </html>

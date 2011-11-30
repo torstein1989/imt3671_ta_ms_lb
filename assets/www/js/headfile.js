@@ -18,5 +18,6 @@ IncludeCssFile('js/jquery.mobile-1.0rc3.min.js');
 <script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/jquery-1.7.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.0rc3.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/ajax.js"></script>
 <!-- CSS -->
 <link rel="stylesheet" href="css/jquery.mobile-1.0rc3.css" />

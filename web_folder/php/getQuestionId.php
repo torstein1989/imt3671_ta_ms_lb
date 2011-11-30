@@ -7,7 +7,9 @@ require_once 'connection.php';
 	    //echo 'Connected to database<br />'; //remove for debug
 	
 	    /*** The SQL SELECT statement ***/
-	    $sql = "SELECT * FROM feedback_qvote WHERE nowVoting='yes' ";
+	    $sql = "SELECT * FROM feedback_qvote WHERE nowVoting='yes'";
+	    
+	    
 	    foreach ($dbh->query($sql) as $row)
 	        {
 	        	echo json_encode($row);

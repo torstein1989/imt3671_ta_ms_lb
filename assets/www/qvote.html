@@ -6,68 +6,28 @@
 	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.0rc3.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/ajax.js"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/jquery.mobile-1.0rc3.css" />
-<script>
-	var question = null;
-	var qA,qB,qC,qD = null;
-	/**
-		Get the voteID from the called function 
-	*/
-	
-	$(document).ready(function(){
-		
-		
-		$("#subBtn").click(function(){
-			question = $("input[name=formQuestion]").val();
-			qA = $("input[name=formA]").val();
-			qB = $("input[name=formB]").val();
-			qC = $("input[name=formC]").val();
-			qD = $("input[name=formD]").val();
-			
-			if(question == ""){
-				alert("Please add question text!");
-			}
-			else{
-				postData();
-			}
-			
-		})
-		
-		function postData(){
-			$.ajax({
-				url: "http://www.stud.hig.no/~090917/teacherfeed/php/qvote.php",
-				type: "POST",
-				data: 	"&question="+question+
-						"&qA="+qA+
-						"&qB="+qB+
-						"&qC="+qC+
-						"&qD="+qD
-				,
-				success:function(data){
-					alert(question+qA+qB+qC+qD);
-				}
-			});
-		}
-		
-	});
-</script>
 </head>
+
 <body>
 <div data-role="page">
+<h1>Add a Poll-Question</h1>
 	<div data-role="fieldcontain">
-		<label for="formQuestion">Question</label>
-		<input type="text" id="formQuestion" name="formQuestion" />
-		<label for="formA">Option A</label>
-		<input type="text" id="formA" name="formA" />
-		<label for="formB">Option B</label>
-		<input type="text" id="formB" name="formB" />
-		<label for="formC">Option C</label>
-		<input type="text" id="formC" name="formC" />
-		<label for="formD">Option D</label>
-		<input type="text" id="formD" name="formD" />
-		
-		<button type="button" id="subBtn"> REGISTER THIS</button>
+	<div id="questionForm">
+			<label for="formQuestion">Question</label>
+			<input type="text" id="formQuestion" name="formQuestion" />
+			<label for="formA">Option A</label>
+			<input type="text" id="formA" name="formA" />
+			<label for="formB">Option B</label>
+			<input type="text" id="formB" name="formB" />
+			<label for="formC">Option C</label>
+			<input type="text" id="formC" name="formC" />
+			<label for="formD">Option D</label>
+			<input type="text" id="formD" name="formD" />
+		</div>
+		<button type="button" id="qvoteSubBtn"> REGISTER POLLQUESTION</button>
 	</div>
 </div>
 </body>

@@ -6,69 +6,17 @@
 	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.0rc3.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/ajax.js"></script>
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/jquery.mobile-1.0rc3.css" />
-<script>
-	var vote = -1;
-	var vID = -1;
-	/**
-		Get the voteID from the called function 
-	*/
-	
-	$(document).ready(function(){
-		/**
-		$("input").live("change",function(e){
-			  alert( "Change event! new value is " + $(this).val() );
-			  $("input[type=radio]").attr("checked",true).checkboxradio("refresh");
-			});*/
-		
-		getVoteId();//get the current QuestionID
-		
-		$("#subBtn").click(function(){
-			vote = $("input[name=vote]:checked").val();
-			if(vote == undefined){
-				alert("Please choose a selection!");
-			}
-			else{
-				getVoteId();//get the current QuestionID
-				postData();
-				alert("Answer OK and ID: "+vID)
-				$("input[type='radio']").attr("checked",false).checkboxradio("refresh");//Resets the radiobutton
-			}
-			
-		});//click function end
-		
-				
-		function postData(){
-			$.ajax({
-				url: "http://www.stud.hig.no/~090917/teacherfeed/php/vote.php",
-				type: "POST",
-				data: 	"&vID="+vID+
-						"&vote="+vote,
-				success:function(data){
-				}
-			});//ajax-end
-		}//postdata-End
-		
-		function getVoteId(){
-			$.ajax({
-				url: 'http://www.stud.hig.no/~090917/teacherfeed/php/getQuestionId.php',
-				type: 'GET',
-				dataType: 'json',
-				success: function(data) {
-					var idData = parseInt(data[0]);
-					vID = idData;
-				}
-			});//ajax-end
-		}//getVoteId-end
-	});//documentReady -end
-</script>
 </head>
+
 <body>
 <div data-role="page">
+	<h1>Vote on this poll: </h1>
 	<div data-role="fieldcontain">	
 		<fieldset data-role="controlgroup" data-type="horizontal">
-		<legend>Choose a answer:</legend>
+		<legend>Choose a answer:</legend><br />
 			<input type="radio" id="vote1" name="vote" value="1" /> 
 			<label for="vote1">A</label>
 			<input type="radio" id="vote2" name="vote" value="2" />
@@ -78,7 +26,7 @@
 			<input type="radio" id="vote4" name="vote" value="4" /> 
 			<label for="vote4">D</label>
 			
-			<button type="button" id="subBtn"> VOTE THIS</button>
+			<button type="button" id="voteSubBtn"> VOTE THIS</button>
 		</fieldset>
 	</div>
 </div>
