@@ -77,7 +77,7 @@ $(document).ready(function(){
 				$.ajax({
 					url: "http://www.stud.hig.no/~090917/teacherfeed/php/updateNowVoting.php",
 					type: "POST",
-					data: 	"&qID="+qID
+					data: 	"&qID="+qID,
 					success:function(data){
 					}
 				});//ajax-end
@@ -90,8 +90,8 @@ $(document).ready(function(){
 				$.ajax({
 					url: "http://www.stud.hig.no/~090917/teacherfeed/php/updateNowVoting.php",
 					type: "POST",
-					data: 	"&qID="+qID+,
-							"&qID2="+qID2
+					data: 	"&qID="+qID+
+							"&qID2="+qID2,
 					success:function(data){
 					}
 				});//ajax-end

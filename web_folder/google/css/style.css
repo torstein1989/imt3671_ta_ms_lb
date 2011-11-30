@@ -38,6 +38,18 @@ display: block;
 #chart{
 	margin-left: 15px;
 }
+#difficultyGauge{
+	width: auto;
+	height: auto;
+}
+#messages{
+	border: 1px solid gray;
+	height: 200px;
+	width: 220px;
+	position: absolute;
+	right: 5px;
+	top: 450px;
+}
 
 .current{
 	left: 35% !important;
