@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	/********************OTHER SETTINGS*********************/
+	
 	/*************************QVOTE*************************/
 	var question = null;
 	var qA,qB,qC,qD = null;

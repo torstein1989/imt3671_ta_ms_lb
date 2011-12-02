@@ -13,6 +13,8 @@ display: block;
   margin-left: -450px;
   margin-top: -350px;
   
+  font-family: 'Open Sans', Arial, sans-serif;
+  
   padding: 10px 0 0 10px;
 
   box-sizing: border-box;
@@ -38,19 +40,47 @@ display: block;
 #chart{
 	margin-left: 15px;
 }
+#question{
+	font-size: 1.1em;
+	font-family: 'Open Sans', Arial, sans-serif;
+}
 #difficultyGauge{
+	margin-top: 20px;
 	width: auto;
 	height: auto;
 }
+button, #autoResult {
+	margin-top:15px;
+}
+#voteCount{
+	float: right;
+	margin: -58px 21px 0 0;
+}
 #messages{
-	border: 1px solid gray;
-	height: 200px;
+	overflow-y: scroll;
+	background-color: white;
+	opacity: 0.7;
+	height: 240px;
 	width: 220px;
 	position: absolute;
 	right: 5px;
 	top: 450px;
+	
+	border-radius: 10px;
+  	-o-border-radius: 10px;
+  	-moz-border-radius: 10px;
+  	-webkit-border-radius: 10px;
 }
-
+.messageText{
+	
+}
+.messageDate{
+	
+}
+/**GOOGLE SLIDE OPTIONS*/
+.slides.template-default > article:not(.nobackground):not(.biglogo){
+	background-image: none !important;
+}
 .current{
 	left: 35% !important;
 }

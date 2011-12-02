@@ -20,7 +20,10 @@ $(document).ready(function(){
 	var voteCounts= 0;		//Number of votes that is counted for this poll
 	
 	var autoUpdate = 0;		//Setinterval value for autoupdate of question and votes
-	var initMood = 0;		//Initialize variable for staring the mood meter in background 
+	var initMood = 0;		//Initialize variable for staring the mood meter in background
+	
+	var newMessage = true;
+	var messageId = -1;
 	
 	var options = { 		//Draw options for flot graph
 			series:{
@@ -41,11 +44,13 @@ $(document).ready(function(){
 	 */
 	initMood = setInterval(function(){
 		getMood();
+		getMessages();
 	},4000);
 	
 	drawFlot();				//Draws an empty chart
 	drawGauge();
-	getQuestion();			//First populates the questions, then gets the questions alternatives 
+	getQuestion();			//First populates the questions, then gets the questions alternatives
+	getMessages();			//Populate the messagebox
 	
 	$("#getResult").click(function(){
 			reset();
@@ -261,5 +266,42 @@ $(document).ready(function(){
                     ]
           });
 	}//drawGauge-end
+	
+	function getMessages(){
+		$.ajax({
+			url: '../php/getMessages.php',
+			type: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				if(messageId == -1){
+					var i= 0;
+					while (i < data.length){
+						var date= data[i].date;
+						var message = data[i].message;
+						var messageFill = '';
+						messageFill += '<p class="messageText"><span class="messageDate">'+ date +'</span><br />&hearts; '+message+' &#133;</p>';
+						$("#messages").append(messageFill);
+						i++;
+					}
+					messageId = data[4].meID;
+				}
+				else if(data[4].meID > messageId && messageId != -1){
+					$("#messages").empty();
+					var i= 0;
+					while (i < data.length){
+						var date= data[i].date;
+						var message = data[i].message;
+						var messageFill = '';
+						messageFill += '<p class="messageText"><span class="messageDate">'+ date +'</span><br />&hearts; '+message+' &#133;</p>';
+						$("#messages").append(messageFill);
+						i++;
+					}
+					$(".messageText").hide().fadeIn(1000);
+					messageId = data[4].meID;
+				}
+				
+			}//success-end
+		});//ajax-end
+	}
 	
 });//documentready-end
