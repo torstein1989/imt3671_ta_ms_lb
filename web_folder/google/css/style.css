@@ -1,5 +1,5 @@
 #flotChart{
-display: block;
+	display: block;
 
   position: absolute;
   overflow: hidden;
@@ -45,12 +45,13 @@ display: block;
 	font-family: 'Open Sans', Arial, sans-serif;
 }
 #difficultyGauge{
-	margin-top: 20px;
+	margin-top: 5px;
 	width: auto;
 	height: auto;
 }
-button, #autoResult {
-	margin-top:15px;
+button, #autoResult, #question{
+	margin-top:10px;
+	margin-left: 5px;
 }
 #voteCount{
 	float: right;
@@ -64,18 +65,21 @@ button, #autoResult {
 	width: 220px;
 	position: absolute;
 	right: 5px;
-	top: 450px;
+	top: 425px;
 	
 	border-radius: 10px;
   	-o-border-radius: 10px;
   	-moz-border-radius: 10px;
   	-webkit-border-radius: 10px;
 }
-.messageText{
+.messageText {
 	
 }
 .messageDate{
 	
+}
+.statGauge canvas{
+	margin-left: 25%;
 }
 /**GOOGLE SLIDE OPTIONS*/
 .slides.template-default > article:not(.nobackground):not(.biglogo){

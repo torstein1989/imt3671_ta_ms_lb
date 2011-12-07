@@ -103,6 +103,10 @@ $(document).ready(function(){
 			voteClicked=true;
 		}
 	});//click-end
+	
+	$("#saveState").click(function(){
+		saveState();
+	});
 
 	
 	/**
@@ -198,6 +202,7 @@ $(document).ready(function(){
 					i++;
 				}
 				$("#voteCount").html("Sum votes: "+ voteCounts);
+				$("#voteCount").val(voteCounts);
 				placeholder = $("#chart");
 				plotData = [{ data:[ [1,qA],[2,qB],[3,qC],[4,qD] ] },];
 				$.plot($(placeholder), plotData, options);
@@ -268,6 +273,10 @@ $(document).ready(function(){
 	}//drawGauge-end
 	
 	function getMessages(){
+		function capitaliseFirstLetter(string)
+		{
+		    return string.charAt(0).toUpperCase() + string.slice(1);
+		}
 		$.ajax({
 			url: '../php/getMessages.php',
 			type: 'GET',
@@ -278,8 +287,10 @@ $(document).ready(function(){
 					while (i < data.length){
 						var date= data[i].date;
 						var message = data[i].message;
+						message = capitaliseFirstLetter(message);
 						var messageFill = '';
-						messageFill += '<p class="messageText"><span class="messageDate">'+ date +'</span><br />&hearts; '+message+' &#133;</p>';
+						messageFill += '<p class="messageText"><span class="messageDate">'+ date +'</span><br /> &rsaquo; '+message+' &#133;</p>';
+						messageFill = capitaliseFirstLetter(messageFill);
 						$("#messages").append(messageFill);
 						i++;
 					}
@@ -291,8 +302,9 @@ $(document).ready(function(){
 					while (i < data.length){
 						var date= data[i].date;
 						var message = data[i].message;
+						message = capitaliseFirstLetter(message);
 						var messageFill = '';
-						messageFill += '<p class="messageText"><span class="messageDate">'+ date +'</span><br />&hearts; '+message+' &#133;</p>';
+						messageFill += '<p class="messageText"><span class="messageDate">'+ date +'</span><br /> &rsaquo; '+message+' &#133;</p>';
 						$("#messages").append(messageFill);
 						i++;
 					}
@@ -303,5 +315,71 @@ $(document).ready(function(){
 			}//success-end
 		});//ajax-end
 	}
+	
+	function saveState(){
+		
+		var statSlide = null;
+		var statUrl = null;
+		var statVote = null;
+		var statVoteCount = null;
+		var statMoodColor = null;
+		var statMood = null;
+		var statDifficulty = null;
+		
+		if(window.location.hash) {
+			var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+			// hash found
+		} 
+		else {
+			// No hash found}
+		}
+		
+		if($("#voteCount").val() == ""){
+			statVoteCount = -1;
+		}
+		else{
+			statVoteCount = parseInt($("#voteCount").val());
+		}
+		
+		if(statVoteCount == -1){
+			statVote = -1;
+		}
+		else{
+			statVote = parseInt($("#question").val());
+		}
+		
+		statSlide = hash;
+		statUrl = window.location;
+		statMood = mood;
+		statMoodColor = $("body").css('backgroundColor');
+		statDifficulty = difficulty;
+		
+		/*
+		alert("Slide= "+statSlide+"<br />" + 
+				"Vote= "+statVote+"<br />"+
+				"VoteCount= "+statVoteCount+"<br />"+
+				"Mood= "+statMood+"<br />"+
+				"Difficulty= "+statDifficulty+"<br />"+
+				"MoodColor= "+statMoodColor+statMoodColor.length+"<br />");
+		*/
+		
+		
+		$.ajax({
+			url: "http://www.stud.hig.no/~090917/teacherfeed/php/statistics.php",
+			type: "POST",
+			data: 	"&statSlide="+statSlide+
+					"&statUrl="+statUrl+
+					"&statVote="+statVote+
+					"&statVoteCount="+statVoteCount+
+					"&statMoodColor="+statMoodColor+
+					"&statMood="+statMood+
+					"&statDifficulty="+statDifficulty,
+			success:function(data){
+			}
+		});//ajax-end
+		
+		alert("***State is Saved***");
+	}//savestate-end
+	
 	
 });//documentready-end
