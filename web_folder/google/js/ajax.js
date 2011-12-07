@@ -294,7 +294,14 @@ $(document).ready(function(){
 						$("#messages").append(messageFill);
 						i++;
 					}
-					messageId = data[4].meID;
+					
+					if(data[4].meID=="undefined"){
+						//dont start this yet
+					}
+					else{
+						messageId = data[4].meID;
+					}
+					
 				}
 				else if(data[4].meID > messageId && messageId != -1){
 					$("#messages").empty();
@@ -309,7 +316,13 @@ $(document).ready(function(){
 						i++;
 					}
 					$(".messageText").hide().fadeIn(1000);
-					messageId = data[4].meID;
+					
+					if(data[4].meID=="undefined"){
+						//dont start this yet
+					}
+					else{
+						messageId = data[4].meID;
+					}
 				}
 				
 			}//success-end

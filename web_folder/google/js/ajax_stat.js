@@ -43,7 +43,7 @@ $(document).ready(function(){
 			          });
 					index = i;
 					voteValue = parseInt(data[i].statVote);
-					voteValue -= 1;
+					//voteValue -= 1;
 					if(voteValue<0){
 						$("#statVotePoll_"+index).html("No poll was voted for").css("color","red");
 						$("#statVoteCount_"+index).html("No poll was voted for").css("color","red");
@@ -67,6 +67,7 @@ $(document).ready(function(){
 			type: 'GET',
 			dataType: 'json',
 			success: function(data) {
+				voteValuE -= 1;
 				var q= data[voteValuE].question;
 				var a= data[voteValuE].qA;
 				var b= data[voteValuE].qB;
