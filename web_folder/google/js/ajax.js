@@ -1,8 +1,7 @@
 $(document).ready(function(){
-	/**VARIABLE/SETTINGS*/
-	//var inputId = -1;
-	var difficulty= null; 	//Difficulty variable 
-	var mood= null;			//Mood variable
+	/**VARIABLE/SETTINGS*/	
+	var forStatMood = null;
+	var forStatDifficulty =null;
 	
 	var qSet = true;		//Is the question set variable
 	
@@ -47,8 +46,9 @@ $(document).ready(function(){
 		getMessages();
 	},4000);
 	
+	getMood();				//Gets the color for the mood on the page
 	drawFlot();				//Draws an empty chart
-	drawGauge();
+	drawGauge();			//Draws the gauge
 	getQuestion();			//First populates the questions, then gets the questions alternatives
 	getMessages();			//Populate the messagebox
 	
@@ -59,6 +59,12 @@ $(document).ready(function(){
 			
 			$.plot($(placeholder), plotData, options);
 	});//click-end
+	
+	$("#question").change(function(){
+		reset();
+		getQuestion();
+		getVotes();
+	});
 	
 	$("#autoResult").change(function(){
 		if($("#autoResult:checked").val() == "yes"){
@@ -71,12 +77,12 @@ $(document).ready(function(){
 		else{
 			clearInterval(autoUpdate);
 		}
-	});
+	});//change-end
 	
 	var voteClicked = true;
 	$("#voteToggle").click(function(){
 		if(voteClicked){
-			$("#voteToggle").html("STOP VOTING");
+			$("#voteToggle").css("backgroundColor","green");
 			selectedId = parseInt($("#question").val());
 			qID = selectedId;
 				$.ajax({
@@ -89,7 +95,7 @@ $(document).ready(function(){
 			voteClicked=false;
 		}
 		else{
-			$("#voteToggle").html("START VOTING");
+			$("#voteToggle").css("backgroundColor","red");
 			selectedId = parseInt($("#question").val());
 			qID = selectedId;
 				$.ajax({
@@ -107,7 +113,59 @@ $(document).ready(function(){
 	$("#saveState").click(function(){
 		saveState();
 	});
+	
+	$("#pollBtn").click(function(){
+		$("#pollQuestion").dialog({
+			buttons: 
+				[
+				 {
+					 text: "Reset", click: function() { $("#questionForm input[type=text]").val(""); }
+				 },
+				 {
+					 text: "Save", click: function() { postQuesetionData(); }
+				 }
+				 ]
+		});
+	});
 
+	
+	/**
+	 * Function for posting data
+	 * @param qA voteQuestion A
+	 * @param qB voteQuestion B
+	 * @param qC voteQuestion C
+	 * @param qD voteQuestion D
+	 */
+	function postQuesetionData(){
+		var question = $("input[name=formQuestion]").val();
+		var qA = $("input[name=formA]").val();
+		var qB = $("input[name=formB]").val();
+		var qC = $("input[name=formC]").val();
+		var qD = $("input[name=formD]").val();
+		
+		if(question == ""){
+			alert("Please add question text!");
+		}
+		else{
+			$.ajax({
+				url: "../php/qvote.php",
+				type: "POST",
+				data: 	"&question="+question+
+						"&qA="+qA+
+						"&qB="+qB+
+						"&qC="+qC+
+						"&qD="+qD
+				,
+				success:function(data){
+					//alert(question+qA+qB+qC+qD);
+					qSet = true;
+					getQuestion();
+				}
+			});//ajax-end
+			$("#questionForm input[type=text]").val("");
+		}
+		
+	}//postQuesetionData-end
 	
 	/**
 	 * Draws the flot chart when the page loads
@@ -136,11 +194,20 @@ $(document).ready(function(){
 			dataType: 'json',
 			success: function(data) {
 				if(qSet){
-					var i = 0;
+					$("#question").empty();
+					var i = -1;
 					while(i < data.length){
-						var opt = '';
-						opt += '<option value="' + data[i].qID + '">' + data[i].question + '</option>';
-						$("#question").append(opt);
+						if(i == -1){
+							var opt = '';
+							opt += '<option value="-1">Choose question here ...  </option>';
+							$("#question").append(opt);
+						}
+						else{
+							var opt = '';
+							opt += '<option value="' + data[i].qID + '">' + data[i].question + '</option>';
+							$("#question").append(opt);
+						}
+						
 						i++;
 					}
 					qSet = false;
@@ -153,30 +220,35 @@ $(document).ready(function(){
 				*/
 				
 				else{
-					var selId = selectedId-1;
-					var a = data[selId].qA;
-					var b = data[selId].qB;
-					var c = data[selId].qC;
-					var d = data[selId].qD;
-					
-					options = {
-							series:{
-								stack: 0,
-								lines: {show: false, steps: false },
-								bars: {show: true, barWidth: 0.5, align: 'center',},
-								},
-								
-								xaxis: {ticks: [[1,a], [2,b], [3,c], [4,d]]},
-								yaxis: { min: 0, max: 30 },	
+					if(parseInt($("#question").val()) == -1){
+						//do nothing
 					}
-					/*
-					$("#labelId").show().html("ID");
-					$("#questionDiv").html(data[inputId].question);	//Question
-						$("#voteA").html(data[inputId].qA); 		//Vote-option 1
-						$("#voteB").html(data[inputId].qB);			//Vote-option 2
-						$("#voteC").html(data[inputId].qC);			//Vote-option 3
-						$("#voteD").html(data[inputId].qD);			//Vote-option 4
-						*/
+					else{
+						var selId = selectedId-1;
+						var a = data[selId].qA;
+						var b = data[selId].qB;
+						var c = data[selId].qC;
+						var d = data[selId].qD;
+						
+						options = {
+								series:{
+									stack: 0,
+									lines: {show: false, steps: false },
+									bars: {show: true, barWidth: 0.5, align: 'center',},
+									},
+									
+									xaxis: {ticks: [[1,a], [2,b], [3,c], [4,d]]},
+									yaxis: { min: 0, max: 30 },	
+						}
+						/*
+						$("#labelId").show().html("ID");
+						$("#questionDiv").html(data[inputId].question);	//Question
+							$("#voteA").html(data[inputId].qA); 		//Vote-option 1
+							$("#voteB").html(data[inputId].qB);			//Vote-option 2
+							$("#voteC").html(data[inputId].qC);			//Vote-option 3
+							$("#voteD").html(data[inputId].qD);			//Vote-option 4
+							*/
+					}
 				}
 			}
 		});//ajax-end
@@ -212,6 +284,8 @@ $(document).ready(function(){
 	}//getVotes-end
 		
 	function getMood(){
+		var difficulty= null; 	//Difficulty variable 
+		var mood= null;			//Mood variable
 		$.ajax({
 			url: '../php/getMood.php',
 			type: 'GET',
@@ -222,9 +296,13 @@ $(document).ready(function(){
 					
 					intMood = parseInt(data[i].mMood);
 					mood= mood + intMood;
+					forStatMood = mood;
+					//alert("Mood: "+ mood);
 					
 					intDifficulty= parseInt(data[i].mDiff);
 					difficulty = difficulty + intDifficulty;
+					forStatDifficulty = difficulty;
+					//alert("Difficulty: "+ difficulty);
 					i++;
 				}
 				
@@ -289,7 +367,7 @@ $(document).ready(function(){
 						var message = data[i].message;
 						message = capitaliseFirstLetter(message);
 						var messageFill = '';
-						messageFill += '<p class="messageText"><span class="messageDate">'+ date +'</span><br /> &rsaquo; '+message+' &#133;</p>';
+						messageFill += '<p class="messageText"><span class="messageDate">&raquo;'+ date +'&laquo;</span><br /> &rsaquo; '+message+' &#133;</p>';
 						messageFill = capitaliseFirstLetter(messageFill);
 						$("#messages").append(messageFill);
 						i++;
@@ -311,7 +389,7 @@ $(document).ready(function(){
 						var message = data[i].message;
 						message = capitaliseFirstLetter(message);
 						var messageFill = '';
-						messageFill += '<p class="messageText"><span class="messageDate">'+ date +'</span><br /> &rsaquo; '+message+' &#133;</p>';
+						messageFill += '<p class="messageText"><span class="messageDate">&raquo;'+ date +'&laquo;</span><br /> &rsaquo; '+message+' &#133;</p>';
 						$("#messages").append(messageFill);
 						i++;
 					}
@@ -354,7 +432,7 @@ $(document).ready(function(){
 			statVoteCount = parseInt($("#voteCount").val());
 		}
 		
-		if(statVoteCount == -1){
+		if(parseInt($("#question").val()) == -1){
 			statVote = -1;
 		}
 		else{
@@ -363,9 +441,9 @@ $(document).ready(function(){
 		
 		statSlide = hash;
 		statUrl = window.location;
-		statMood = mood;
+		statMood = forStatMood/10;
+		statDifficulty = forStatDifficulty/10;
 		statMoodColor = $("body").css('backgroundColor');
-		statDifficulty = difficulty;
 		
 		/*
 		alert("Slide= "+statSlide+"<br />" + 

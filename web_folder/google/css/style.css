@@ -2,7 +2,7 @@
 	display: block;
 
   position: absolute;
-  overflow: hidden;
+  /*overflow: hidden;*/
 
   width: 400px;
   height: 700px;
@@ -43,28 +43,30 @@
 #question{
 	font-size: 1.1em;
 	font-family: 'Open Sans', Arial, sans-serif;
+	margin-bottom: 2px;
 }
 #difficultyGauge{
-	margin-top: 5px;
+	position:absolute;
+	left: 240px;
+	margin-top: 25px;
 	width: auto;
 	height: auto;
 }
 button, #autoResult, #question{
-	margin-top:10px;
 	margin-left: 5px;
 }
 #voteCount{
 	float: right;
-	margin: -58px 21px 0 0;
+	margin: -20px 21px 0 0;
 }
 #messages{
 	overflow-y: scroll;
 	background-color: white;
 	opacity: 0.7;
 	height: 240px;
-	width: 220px;
+	width: 210px;
 	position: absolute;
-	right: 5px;
+	left: 20px;
 	top: 425px;
 	
 	border-radius: 10px;
@@ -77,6 +79,52 @@ button, #autoResult, #question{
 }
 .messageDate{
 	
+}
+/*BUTTONTABS on the RIGHT SIDE*/
+#pollBtn, #getResult, #voteToggle, #saveState{
+	position: absolute;
+	border: inherit;
+	width: 36px;
+	height: 50px;
+	z-index: -7500;
+	margin-left: 97%;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	background-color: inherit;
+	font-family: inherit;
+	text-align: center;
+}
+#pollBtn:hover, #getResult:hover, #voteToggle:hover, #saveState:hover{
+	opacity: 0.85;
+}
+#pollBtn h4{
+	margin-top: 50%;
+}
+#pollBtn{
+	background-image: url('icons/question.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+#getResult{
+	margin-top: 54px;
+	background-image: url('icons/arrow-refresh-small.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+#voteToggle{
+	margin-top: 108px;
+	background-image: url('icons/chart-bar.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+#saveState{
+	margin-top: 162px;
+	background-image: url('icons/table-save.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+#pollQuestion{
+	display: none;
 }
 .statGauge canvas{
 	margin-left: 25%;

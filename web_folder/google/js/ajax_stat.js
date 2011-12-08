@@ -19,7 +19,7 @@ $(document).ready(function(){
 			success: function(data) {
 				while (i < data.length){
 					var statFill = '';
-					statFill += '<tr><td>'+data[i].statID+'</td><td>'+data[i].date+'</td><td>'+data[i].statSlide+' - <a href="'+data[i].statUrl+'">'+data[i].statUrl+'</a></td><td id="statVotePoll_'+i+'">&laquo;'+data[i].statVote+'&raquo;</td><td id="statVoteCount_'+i+'">'+data[i].statVoteCount+'</td><td>'+data[i].statDifficulty+'</td><td>'+data[i].statMood+'</td><td id="moodColor_'+i+'"></td><td class="statGauge"><canvas id="difficultyGauge_'+i+'" width="100px" height ="100px"></canvas></td></tr>';
+					statFill += '<tr><td>'+data[i].statID+'</td><td>'+data[i].date+'</td><td>'+data[i].statSlide+' - <a href="'+data[i].statUrl+'">'+data[i].statUrl+'</a></td><td id="statVotePoll_'+i+'">&laquo;'+data[i].statVote+'&raquo;</td><td id="statVoteCount_'+i+'">'+data[i].statVoteCount+'</td><td>'+data[i].statMood+'</td><td id="moodColor_'+i+'"><td>'+data[i].statDifficulty+'</td></td><td class="statGauge"><canvas id="difficultyGauge_'+i+'" width="100px" height ="100px"></canvas></td></tr>';
 					$("#statTableData").append(statFill);
 					
 					//Sets color of the moodcolor
