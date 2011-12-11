@@ -56,9 +56,11 @@ $(document).ready(function(){
 	$("#moodSubBtn").click(function(){
 		mDiff = $("#moodVal").val();
 		mMood = $("#moodVal_1").val();
-		alert("OK! --> Difficulty= "+mDiff+" Mood= "+mMood);
+		//alert("OK! --> Difficulty= "+mDiff+" Mood= "+mMood);//for debugging mood and diff
 		postMoodDiffData();
-		$("#moodVal").slider("refresh");
+		$("#moodVal, #moodVal_1").val(50);
+		$("#moodVal, #moodVal_1").slider("refresh");
+		
 		
 	});//click-end
 	
@@ -76,6 +78,7 @@ $(document).ready(function(){
 	/*************************VOTE*************************/
 	var vote = -1;
 	var vID = -1;
+	var newVID = -1;
 	
 	/**
 	 * Starts the getMood method, so the background-color
@@ -119,23 +122,61 @@ $(document).ready(function(){
 					$("#labelVote2").html("B");
 					$("#labelVote3").html("C");
 					$("#labelVote4").html("D");
+					
+					$("#voteBtn1").html(" Option A ");
+					$("#voteBtn2").html(" Option B ");
+					$("#voteBtn3").html(" Option C ");
+					$("#voteBtn4").html(" Option D ");
+					$("#voteButtons button").button("refresh");
+					$("#voteButtons button").button("disable");
 				}
 				else{
-					var q = data[3];
-					var a = data[4];
-					var b = data[5];
-					var c = data[6];
-					var d = data[7];
+					getVoteId();
 					
-					$("#labelQuestion").html("- "+q);
-					$("#labelVote1").html(a);
-					$("#labelVote2").html(b);
-					$("#labelVote3").html(c);
-					$("#labelVote4").html(d);
+					if(newVID != vID){
+						var q = data[3];
+						var a = data[4];
+						var b = data[5];
+						var c = data[6];
+						var d = data[7];
+						
+						$("#labelQuestion").html("- "+q);
+						$("#labelVote1").html(a);
+						$("#labelVote2").html(b);
+						$("#labelVote3").html(c);
+						$("#labelVote4").html(d);
+						
+						$("#voteBtn1").html("A: "+a);
+						$("#voteBtn2").html("B: "+b);
+						$("#voteBtn3").html("C: "+c);
+						$("#voteBtn4").html("D: "+d);
+						$("#voteButtons button").button("refresh");
+						$("#voteButtons button").button("enable");
+
+						newVID= vID;
+					}
 				}
 			}
 		});//ajax-end
 	}//getQuestion-end
+	
+	/**
+	 * Click function for the clicked votebutton
+	 */
+	$("#voteButtons button").click(function(){
+		getVoteId();
+		
+		vote = parseInt($(this).val());
+		
+		if(vID == -1){
+			alert("No voting started");
+		}
+		else{
+			getVoteId();
+			postVoteData();
+		}
+		
+	});
 	
 	/**
 	 * Click function for getting the checked value
@@ -166,6 +207,7 @@ $(document).ready(function(){
 			data: 	"&vID="+vID+
 					"&vote="+vote,
 			success:function(data){
+				$("#voteBtn1,#voteBtn2,#voteBtn3,#voteBtn4").button("disable");
 			}
 		});//ajax-end
 	}//postVoteData-End

@@ -1,10 +1,51 @@
 /**Stylesheet for application */
-h1{
-	font-size: 50px;
+.ui-field-contain div.ui-slider{
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 99%;
+	height: 100%;
+	margin-left: 5px;
 }
-a{
-	font-size: 40px;
+input.ui-slider-input, .ui-field-contain input.ui-slider-input {
+	display: none !important;
 }
-input{
+.ui-field-contain div.ui-slider{
+	height: 3em;
+}
+a.ui-slider-handle {
+	height: 4em;
+	width: 3em;
+	margin-top: -34px;
+}
+
+.ui-icon-mood-vote-diff{
+	background-image: url("images/chart-mood.png");
 	
+}
+.ui-icon-message{
+	background-image: url("images/user-comment.png");
+		
+}
+.ui-icon {
+width: 32px !important;
+height: 32px !important;
+}
+
+.txtSlideLeft{
+	float: left;
+	margin: 0 0 0 5%;
+}
+.txtSlideRight{
+	float: right;
+	margin: 0 5% 0 0;
+}
+
+.ui-btn {
+	padding-top: 5px !important;
+}
+
+.ui-field-contain input.ui-input-text, .ui-field-contain textarea.ui-input-text, .ui-field-contain .ui-input-search{
+	width: 96%;
+	margin-left: 5px;
 }
