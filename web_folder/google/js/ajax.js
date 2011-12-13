@@ -44,7 +44,8 @@ $(document).ready(function(){
 	initMood = setInterval(function(){
 		getMood();
 		getMessages();
-	},4000);
+	},2000);
+	
 	
 	getMood();				//Gets the color for the mood on the page
 	drawFlot();				//Draws an empty chart
@@ -365,10 +366,11 @@ $(document).ready(function(){
 					while (i < data.length){
 						var date= data[i].date;
 						var message = data[i].message;
+						message = message.replace(/(<([^>]+)>)/ig,"");
 						message = capitaliseFirstLetter(message);
 						var messageFill = '';
 						messageFill += '<p class="messageText"><span class="messageDate">&raquo;'+ date +'&laquo;</span><br /> &rsaquo; '+message+' &#133;</p>';
-						messageFill = capitaliseFirstLetter(messageFill);
+						/*messageFill = capitaliseFirstLetter(messageFill);*/
 						$("#messages").append(messageFill);
 						i++;
 					}
@@ -387,6 +389,7 @@ $(document).ready(function(){
 					while (i < data.length){
 						var date= data[i].date;
 						var message = data[i].message;
+						message = message.replace(/(<([^>]+)>)/ig,"");
 						message = capitaliseFirstLetter(message);
 						var messageFill = '';
 						messageFill += '<p class="messageText"><span class="messageDate">&raquo;'+ date +'&laquo;</span><br /> &rsaquo; '+message+' &#133;</p>';
@@ -471,6 +474,36 @@ $(document).ready(function(){
 		
 		alert("***State is Saved***");
 	}//savestate-end
+	/*
+	function getSlideContent(){
+		var i = 0;
+		alert("Wait");
+		$.ajax({
+			url: '../php/getSlideContent.php',
+			type: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				while(i<data.length){
+					$("#artc_"+i).html(data[i].slideText);
+					i++;
+				}
+			}//success-end
+		});//ajax-end
+	}//getSlideContent-end
 	
-	
+	function createArticles(){
+		var i = 0;
+		$.ajax({
+			url: '../php/getSlideContent.php',
+			type: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				while(i<data.length){
+					$("#slideContents").after('<article id="artc_'+i+'"></article>');
+					i++;
+				}
+			}//success-end
+		});//ajax-end
+	}
+	*/
 });//documentready-end

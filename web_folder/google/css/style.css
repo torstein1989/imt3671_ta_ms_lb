@@ -61,6 +61,7 @@ button, #autoResult, #question{
 }
 #messages{
 	overflow-y: scroll;
+	overflow-x: hidden;
 	background-color: white;
 	opacity: 0.7;
 	height: 240px;
@@ -74,11 +75,11 @@ button, #autoResult, #question{
   	-moz-border-radius: 10px;
   	-webkit-border-radius: 10px;
 }
-.messageText {
-	
+.messageText{
+
 }
 .messageDate{
-	
+	font-size: 1.1em;
 }
 /*BUTTONTABS on the RIGHT SIDE*/
 #pollBtn, #getResult, #voteToggle, #saveState{
@@ -86,8 +87,7 @@ button, #autoResult, #question{
 	border: inherit;
 	width: 36px;
 	height: 50px;
-	z-index: -7500;
-	margin-left: 97%;
+	margin-left: 97.5%;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	background-color: inherit;
