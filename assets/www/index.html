@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="css/style.css" />  
 	
 	<!-- Scripts -->
-	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.1.0.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/phonegap-1.2.0.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/jquery-1.6.4.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.0rc3.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/ajax.js"></script>
@@ -18,10 +18,10 @@
 
 <body>
 <div data-role="page">
-<div data-role="navbar" class="iconspot" data-iconpos="top">
+<div data-role="navbar" data-iconpos="top" data-id="head1">
 		<ul>
-			<li><a href="index.html" data-icon="mood-vote-diff" data-iconpos="bottom" class="ui-btn-active" data-ajax="false">MOOD|DIFF|POLL</a></li>
-			<li><a href="message.html" data-ajax="false" data-icon="message" data-iconpos="right">|MESSAGE</a> 
+			<li><a href="index.html" data-icon="mood-vote-diff" class="ui-btn-active" >MOOD|DIFF|POLL</a></li>
+			<li><a href="message.html" data-icon="message" rel="external" data-dom-cache="true">|MESSAGE</a> 
 		</ul>
 	</div>
 	<!-- START MOOD -->
@@ -34,14 +34,15 @@
 	<div data-role="fieldcontain">
 		<input type="range" name="moodVal_1" id="moodVal_1"  min="0" max="100" value="50" />
 	</div>
-	
 	<button type="button" id="moodSubBtn">REGISTER DIFF/MOOD</button>
 	<!-- END MOOD -->
 	
 	<!-- START VOTE -->
-	<h2>Vote on this poll: </h2>
+	<!-- <h2>Vote on this poll: </h2> -->
 	<div id="voteButtons">
-	<h3 id="labelQuestion"></h3>
+	
+	<div id="labelQuestion"></div>
+	 
 	<button type="button" id="voteBtn1" value="1">Option A</button>
 	<button type="button" id="voteBtn2" value="2">Option B</button>
 	<button type="button" id="voteBtn3" value="3">Option C</button>

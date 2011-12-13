@@ -1,5 +1,40 @@
+/********************PHONEGAP*********************/
+// Wait for PhoneGap to load
+    // 
+    document.addEventListener("deviceready", onDeviceReady, false);
+    document.addEventListener("offline", turnOff, false);
+
+    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+    //
+    function onDeviceReady() {
+        checkConnection();
+    }
+    
+    /******************CHECK CONNECTION********************/
+    function checkConnection() {
+        var networkState = navigator.network.connection.type;
+
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.NONE]     = 'No network connection';
+
+        //alert('Connection type: ' + states[networkState]);
+    }
+    
+    function turnOff() {
+    	alert("Sorry, you need a internetconnection for this application to work!");
+    	device.exitApp();
+    }
+    
+    
 $(document).ready(function(){
 	/********************OTHER SETTINGS*********************/
+	getQuestion();
 	
 	/*************************QVOTE*************************/
 	var question = null;
@@ -117,6 +152,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			success: function(data) {
 				if(data==null){
+					/*
 					$("#labelQuestion").html("**No voting right now**");
 					$("#labelVote1").html("A");
 					$("#labelVote2").html("B");
@@ -129,6 +165,9 @@ $(document).ready(function(){
 					$("#voteBtn4").html(" Option D ");
 					$("#voteButtons button").button("refresh");
 					$("#voteButtons button").button("disable");
+					*/
+					$("#voteButtons .ui-btn").hide();
+					$("#labelQuestion").hide();
 				}
 				else{
 					getVoteId();
@@ -140,7 +179,9 @@ $(document).ready(function(){
 						var c = data[6];
 						var d = data[7];
 						
-						$("#labelQuestion").html("- "+q);
+						$("#voteButtons .ui-btn").show();
+						$("#labelQuestion").show();
+						$("#labelQuestion").html('<h2>Vote on this poll: </h2><h3>- '+q+'</h3>');
 						$("#labelVote1").html(a);
 						$("#labelVote2").html(b);
 						$("#labelVote3").html(c);
